@@ -12,7 +12,7 @@
  * @param {number} negativeSpace[].width 
  * @param {number} negativeSpace[].quantity 
  */
-export default function calculatePaintCans(walls, negativeSpace) {
+export default function calculatePaintCans(walls, negativeSpace = []) {
   const totalArea = walls.reduce((total, wall) => {
     return total + calculateAreaOfWall(wall);
   }, 0);
