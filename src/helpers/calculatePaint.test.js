@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { calculatePaintCans } from './calculatePaint'
+import { countPaintCansNecessary } from './calculatePaint'
 
-const calculatePaintCansTestCase = [
+const countPaintCansNecessaryTestCase = [
   [
     9500,
     [
@@ -40,7 +40,7 @@ const calculatePaintCansTestCase = [
   ],
 ]
 
-test.each(calculatePaintCansTestCase)
-  ('calculatePaintCans', (input, expected) => {
-    expect(calculatePaintCans(input)).toEqual(expected);
+test.each(countPaintCansNecessaryTestCase)
+  ('countPaintCansNecessary', (input, expected) => {
+    expect(countPaintCansNecessary(input)).toEqual(expected);
   });
