@@ -1,10 +1,9 @@
 import React from 'react';
+import CalculatePaintCans from './CalculatePaintCans/CalculatePaintCans';
 
 function App() {
   return (
-    <div>
-      hello world
-    </div>
+    <CalculatePaintCans />
   );
 }
 
