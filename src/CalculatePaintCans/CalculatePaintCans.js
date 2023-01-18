@@ -1,13 +1,13 @@
 import React from 'react';
 
-const inputForPaintCalculator = [
+const inputGroups = [
   { name: 'Primeira Parede', id: 'first-wall' },
   { name: 'Segunda Parede', id: 'second-wall' },
   { name: 'Terceira Parede', id: 'third-wall' },
   { name: 'Quarta Parede', id: 'fourth-wall' },
 ]
 
-const inputOnEachStep = [
+const inputFields = [
   { name: 'Altura esquerda', propertyName: 'height1' },
   { name: 'Altura direita', propertyName: 'height2' },
   { name: 'Chão', propertyName: 'floor' },
@@ -51,18 +51,17 @@ export default function CalculatePaintCans() {
   return <div>
     <div>
       {
-        inputForPaintCalculator.map((element, index) => {
+        inputGroups.map((element, index) => {
           return <React.Fragment key={element.id}>
             <p >{element.name}</p>
             <div>
-              {inputOnEachStep.map((inputFields) => {
-                const inputIdentifier = `${index}-${inputFields.propertyName}` 
+              {inputFields.map((field) => {
+                const inputIdentifier = `${index}-${field.propertyName}` 
                 return <label key={inputIdentifier}>
-                  {inputFields.name}
-                  <input value={walls[index][inputFields.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
+                  {field.name}
+                  <input value={walls[index][field.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
                 </label>
               })}
-
             </div>
           </React.Fragment>
         })
