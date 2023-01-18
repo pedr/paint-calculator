@@ -1,5 +1,5 @@
-import React from 'react';
-import calculatePaintCans from '../helpers/calculatePaint'
+import React, { useState } from 'react';
+import calculatePaintCans, { calculateAreaOfWall, calculateNegativeSpace } from '../helpers/calculatePaint'
 
 const inputGroups = [
   { name: 'Primeira Parede', id: 'first-wall' },
@@ -16,9 +16,67 @@ const inputFields = [
   { name: 'Chão', propertyName: 'floor' },
 ]
 
+function isWallConstraintsRespected(wall) {
+  const wallArea = calculateAreaOfWall(wall)
+  const areaTooSmall = 10_000
+  const areaTooBig = 500_000
+
+  return wallArea > areaTooSmall && wallArea < areaTooBig
+}
+
+function isNegativeAreaLessThan50PercentOfWall(wall) {
+  const wallArea = calculateAreaOfWall(wall)
+  const negativeArea = calculateNegativeSpace(wall.windows, wall.doors)
+
+  return wallArea / 2 > negativeArea
+}
+
+function isWallBigEnoughForDoor(wall) {
+  if (wall.doors === 0) return true
+
+  const DOOR_HEIGHT = 190
+
+  return wall.height1 + 30 > DOOR_HEIGHT && wall.height2 + 30 > DOOR_HEIGHT
+}
+
+/**
+ * @returns {Array.<{errorMessage: string, index: number}>} 
+ */
+function checkForErrors(errorsFound, wall, wallIndex) {
+  const businessConstrains = [
+    {
+      rule: isNegativeAreaLessThan50PercentOfWall,
+      errorMesage: 'Uma parede não pode ter mais de 50% de sua área ocupada por janela ou portas.'
+    },
+    {
+      rule: isWallBigEnoughForDoor,
+      errorMesage: 'Uma parede que possui uma porta precisa possuir pelo menos 210cm de altura.'
+    },
+    {
+      rule: isWallConstraintsRespected,
+      errorMesage: 'Uma parede precisa ter pelo menos 1m² de area e no máximo 50m²'
+    },
+  ]
+
+  const wallIsNotValid = businessConstrains.filter(contrain => !contrain.rule(wall))
+  return [
+    ...errorsFound,
+    ...wallIsNotValid.map((constrain) => ({
+      errorMessage: constrain.errorMesage,
+      index: wallIndex
+    })
+    )
+  ]
+}
+
 export default function CalculatePaintCans() {
 
-  const [paintCansRequired, setPaintCansRequired] = React.useState(null)
+  /**
+   * @typedef {Array.<{quantity: number, size: number, label: string}} PaintCansState
+   * @typedef {Function} PaintCansStateSetter
+   * @type {[PaintCansState, PaintCansStateSetter]}
+   */
+  const [paintCansRequired, setPaintCansRequired] = useState([])
 
   const [walls, setWalls] = React.useState([
     { height1: '', height2: '', floor: '', windows: '', doors: '' },
@@ -48,34 +106,32 @@ export default function CalculatePaintCans() {
   const checkForErrorsOnInput = () => {
     // check business constrains inside the readme
     const castToIntOrReturnZero = value => value ? parseInt(value) : 0
-    
+
     const allValuesToNumber = []
     for (let wall of walls) {
       const newObject = {}
       newObject.doors = castToIntOrReturnZero(wall.doors)
       newObject.windows = castToIntOrReturnZero(wall.windows)
-      newObject.floor = castToIntOrReturnZero(wall.floor )
+      newObject.floor = castToIntOrReturnZero(wall.floor)
       newObject.height1 = castToIntOrReturnZero(wall.height1)
       newObject.height2 = castToIntOrReturnZero(wall.height2)
       allValuesToNumber.push(newObject)
     }
+
+    const errors = allValuesToNumber.reduce(checkForErrors, [])
     
-    // TODO
-    // check business constrains inside the readme
-    // check business constrains inside the readme
-    // check business constrains inside the readme
-    return { errors: [], validatedInputs: allValuesToNumber }
+    return { errors, validatedInputs: allValuesToNumber }
   }
 
   const handleCalculateRequiredPaintCans = () => {
     const { errors, validatedInputs } = checkForErrorsOnInput()
     if (errors.length) {
+      // TODO!!
       // show errors as alert for example
       return
     }
 
-    const a = calculatePaintCans(validatedInputs)
-    setPaintCansRequired(a)
+    setPaintCansRequired(calculatePaintCans(validatedInputs))
   }
 
   React.useEffect(() => {

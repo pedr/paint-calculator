@@ -50,7 +50,7 @@ function calculateNegativeArea(walls) {
  * @param {number} windowsQuantity
  * @param {number} doorsQuantity
  */
-function calculateNegativeSpace(windowsQuantity, doorsQuantity) {
+export function calculateNegativeSpace(windowsQuantity, doorsQuantity) {
   const WINDOW_AREA_SQUARE_CM = 200 * 120
   const DOOR_AREA_SQUARE_CM = 80 * 190
 
@@ -63,7 +63,7 @@ function calculateNegativeSpace(windowsQuantity, doorsQuantity) {
  * @param {number} wall.height2 
  * @param {number} wall.floor
  */
-function calculateAreaOfWall(wall) {
+export function calculateAreaOfWall(wall) {
   return ((wall.height1 + wall.height2) * wall.floor) / 2
 }
 
