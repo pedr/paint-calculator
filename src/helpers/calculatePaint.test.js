@@ -49,15 +49,10 @@ const calculatePaintCansTestCase = [
   [
     // walls
     [
-      { height1: 220, height2: 220, floor: 500 },
-      { height1: 220, height2: 220, floor: 500 },
-      { height1: 220, height2: 220, floor: 900 },
-      { height1: 220, height2: 220, floor: 900 },
-    ],
-    // negativeSpace
-    [
-      { height: 200, width: 120, quantity: 1 },
-      { height: 80, width: 190, quantity: 1 },
+      { height1: 220, height2: 220, floor: 500, doors: 1, windows: 1 },
+      { height1: 220, height2: 220, floor: 500, doors: 0, windows: 0 },
+      { height1: 220, height2: 220, floor: 900, doors: 0, windows: 0 },
+      { height1: 220, height2: 220, floor: 900, doors: 0, windows: 0 }
     ],
     // expected
     [
@@ -70,13 +65,10 @@ const calculatePaintCansTestCase = [
   [
     // walls
     [
-      { height1: 220, height2: 220, floor: 500 },
-      { height1: 220, height2: 220, floor: 500 },
-      { height1: 220, height2: 220, floor: 900 },
-      { height1: 220, height2: 220, floor: 900 },
-    ],
-    // negativeSpace
-    [
+      { height1: 220, height2: 220, floor: 500, doors: 0, windows: 0 },
+      { height1: 220, height2: 220, floor: 500, doors: 0, windows: 0 },
+      { height1: 220, height2: 220, floor: 900, doors: 0, windows: 0 },
+      { height1: 220, height2: 220, floor: 900, doors: 0, windows: 0 },
     ],
     // expected
     [
@@ -90,6 +82,6 @@ const calculatePaintCansTestCase = [
 
 
 test.each(calculatePaintCansTestCase)
-  ('calculatePaintCans', (walls, negativeSpace, expected) => {
-    expect(calculatePaintCans(walls, negativeSpace)).toEqual(expected);
+  ('calculatePaintCans', (walls, expected) => {
+    expect(calculatePaintCans(walls)).toEqual(expected);
   });

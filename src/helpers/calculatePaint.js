@@ -7,23 +7,48 @@
  * @param {number} walls[].floor
  * @param {number} walls[].windows
  * @param {number} walls[].doors
- * @param {Object[]} negativeSpace 
- * @param {number} negativeSpace[].height 
- * @param {number} negativeSpace[].width 
- * @param {number} negativeSpace[].quantity 
  */
-export default function calculatePaintCans(walls, negativeSpace = []) {
+export default function calculatePaintCans(walls) {
   const totalArea = walls.reduce((total, wall) => {
     return total + calculateAreaOfWall(wall);
   }, 0);
 
-  const negativeSpaceOccupied = negativeSpace.reduce((total, nSpace) => {
-    return total + nSpace.width * nSpace.height * nSpace.quantity
-  }, 0);
-
+  const negativeSpaceOccupied = calculateNegativeArea(walls)
+  
   const areaToBePainted = totalArea - negativeSpaceOccupied;
 
   return countPaintCansNecessary(areaToBePainted);
+}
+
+/**
+ * Function that will calculate the negative area based on the quantity of windows and doors
+ * All input measure should be in centimeters
+ * Returns the square centimeter area that won't need paint
+ * @param {Object[]} walls 
+ * @param {number} walls[].windows
+ * @param {number} walls[].doors
+ */
+function calculateNegativeArea(walls) {
+  const totalQuantity = walls.reduce((total, wall) => {
+    return {
+      doors: total.doors + wall.doors,
+      windows: total.windows + wall.windows,
+    }
+  }, { doors: 0, windows: 0 });
+
+  return calculateNegativeSpace(totalQuantity.windows, totalQuantity.doors);
+}
+
+/**
+ * Calculate negative space
+ * @param {number} windowsQuantity
+ * @param {number} doorsQuantity
+ */
+function calculateNegativeSpace(windowsQuantity, doorsQuantity) {
+  const WINDOW_AREA_SQUARE_CM = 200 * 120
+  const DOOR_AREA_SQUARE_CM = 80 * 190
+
+  return WINDOW_AREA_SQUARE_CM * windowsQuantity + DOOR_AREA_SQUARE_CM * doorsQuantity;
 }
 
 /**
