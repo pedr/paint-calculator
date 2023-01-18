@@ -1,4 +1,5 @@
 import React from 'react';
+import calculatePaintCans from '../helpers/calculatePaint'
 
 const inputGroups = [
   { name: 'Primeira Parede', id: 'first-wall' },
@@ -16,6 +17,8 @@ const inputFields = [
 ]
 
 export default function CalculatePaintCans() {
+
+  const [paintCansRequired, setPaintCansRequired] = React.useState(null)
 
   const [walls, setWalls] = React.useState([
     { height1: '', height2: '', floor: '', windows: '', doors: '' },
@@ -40,6 +43,39 @@ export default function CalculatePaintCans() {
         ...oldValues.slice(index + 1)
       ]
     })
+  }
+
+  const checkForErrorsOnInput = () => {
+    // check business constrains inside the readme
+    const castToIntOrReturnZero = value => value ? parseInt(value) : 0
+    
+    const allValuesToNumber = []
+    for (let wall of walls) {
+      const newObject = {}
+      newObject.doors = castToIntOrReturnZero(wall.doors)
+      newObject.windows = castToIntOrReturnZero(wall.windows)
+      newObject.floor = castToIntOrReturnZero(wall.floor )
+      newObject.height1 = castToIntOrReturnZero(wall.height1)
+      newObject.height2 = castToIntOrReturnZero(wall.height2)
+      allValuesToNumber.push(newObject)
+    }
+    
+    // TODO
+    // check business constrains inside the readme
+    // check business constrains inside the readme
+    // check business constrains inside the readme
+    return { errors: [], validatedInputs: allValuesToNumber }
+  }
+
+  const handleCalculateRequiredPaintCans = () => {
+    const { errors, validatedInputs } = checkForErrorsOnInput()
+    if (errors.length) {
+      // show errors as alert for example
+      return
+    }
+
+    const a = calculatePaintCans(validatedInputs)
+    setPaintCansRequired(a)
   }
 
   React.useEffect(() => {
@@ -69,6 +105,8 @@ export default function CalculatePaintCans() {
           </React.Fragment>
         })
       }
+      <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
+      {JSON.stringify(paintCansRequired, null, 4)}
     </div>
   </div>
 }
