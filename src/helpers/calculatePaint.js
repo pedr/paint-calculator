@@ -1,12 +1,18 @@
 /**
  * Function that will calculate which and how many paint cans are necessary for a number of walls. 
  * All input measure should be in centimeters
- * @param {Object[]} walls 
- * @param {number} walls[].height1 
- * @param {number} walls[].height2 
- * @param {number} walls[].floor
- * @param {number} walls[].windows
- * @param {number} walls[].doors
+ * @param {Array.<{
+ *  height1: Number,
+ * height2: Number,
+ * floor: Number,
+ * windows: Number,
+ * doors: Number
+ * }>} walls 
+ * @returns {Array.<{
+ *  label: string,
+ *  quantity: number,
+ *  size: number,
+ * }>}
  */
 export default function calculatePaintCans(walls) {
   const totalArea = walls.reduce((total, wall) => {
