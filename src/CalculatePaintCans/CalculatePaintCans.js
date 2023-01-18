@@ -36,7 +36,7 @@ function isWallBigEnoughForDoor(wall) {
 
   const DOOR_HEIGHT = 190
 
-  return wall.height1 + 30 > DOOR_HEIGHT && wall.height2 + 30 > DOOR_HEIGHT
+  return wall.height1 - 30 >= DOOR_HEIGHT && wall.height2 - 30 >= DOOR_HEIGHT
 }
 
 /**
@@ -50,7 +50,7 @@ function checkForErrors(errorsFound, wall, wallIndex) {
     },
     {
       rule: isWallBigEnoughForDoor,
-      errorMesage: 'Uma parede que possui uma porta precisa possuir pelo menos 210cm de altura.'
+      errorMesage: 'Uma parede que possui uma porta precisa possuir pelo menos 220cm de altura.'
     },
     {
       rule: isWallConstraintsRespected,
