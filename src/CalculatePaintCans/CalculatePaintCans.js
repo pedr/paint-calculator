@@ -78,6 +78,13 @@ export default function CalculatePaintCans() {
    */
   const [paintCansRequired, setPaintCansRequired] = useState([])
 
+  /**
+   * @typedef {Array.<{errorMessage: string, index: number}} ErrorsFoundState
+   * @typedef {Function} ErrorsFoundStateSetter
+   * @type {[ErrorsFoundState, ErrorsFoundStateSetter]}
+   */
+  const [errorsFound, setErrorsFound] = useState([])
+
   const [walls, setWalls] = React.useState([
     { height1: '', height2: '', floor: '', windows: '', doors: '' },
     { height1: '', height2: '', floor: '', windows: '', doors: '' },
@@ -126,8 +133,7 @@ export default function CalculatePaintCans() {
   const handleCalculateRequiredPaintCans = () => {
     const { errors, validatedInputs } = checkForErrorsOnInput()
     if (errors.length) {
-      // TODO!!
-      // show errors as alert for example
+      setErrorsFound(errors)
       return
     }
 
@@ -159,6 +165,13 @@ export default function CalculatePaintCans() {
               })}
             </div>
           </React.Fragment>
+        })
+      }
+      {
+        errorsFound && errorsFound.length && errorsFound.map(error => {
+          const key = `${error.index}-${error.errorMessage}`
+          const message = `${inputGroups[error.index].name} - ${error.errorMessage}` 
+          return <div key={key}><p>{message}</p></div>
         })
       }
       <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
