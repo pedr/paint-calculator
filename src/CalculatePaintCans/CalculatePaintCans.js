@@ -8,11 +8,11 @@ const inputGroups = [
 ]
 
 const inputFields = [
+  { name: 'Quantidade de janelas', propertyName: 'windows' },
+  { name: 'Quantidade de portas', propertyName: 'doors' },
   { name: 'Altura esquerda', propertyName: 'height1' },
   { name: 'Altura direita', propertyName: 'height2' },
   { name: 'Chão', propertyName: 'floor' },
-  { name: 'Quantidade de janelas', propertyName: 'windows' },
-  { name: 'Quantidade de portas', propertyName: 'doors' },
 ]
 
 export default function CalculatePaintCans() {
@@ -57,10 +57,13 @@ export default function CalculatePaintCans() {
             <div>
               {inputFields.map((field) => {
                 const inputIdentifier = `${index}-${field.propertyName}` 
-                return <label key={inputIdentifier}>
+                return <React.Fragment>
+                  <label key={inputIdentifier}>
                   {field.name}
                   <input value={walls[index][field.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
                 </label>
+                <br/>
+                </React.Fragment>
               })}
             </div>
           </React.Fragment>
