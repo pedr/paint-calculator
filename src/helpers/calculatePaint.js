@@ -74,7 +74,7 @@ export function calculateAreaOfWall(wall) {
  * @return {Object[]} paintCans array of objects with size, label and quantity
  */
 export function countPaintCansNecessary(squareCentimeters) {
-  const HOW_MANY_CMS_A_LITER_CAN_PAINT = 500;
+  const HOW_MANY_CMS_A_LITER_CAN_PAINT = 50_000;
 
   const paintCans = [
     { size: 18, label: '18L', quantity: 0 },

@@ -5,10 +5,10 @@ const countPaintCansNecessaryTestCase = [
   [
     9500,
     [
-      { size: 18, label: '18L', quantity: 1 },
+      { size: 18, label: '18L', quantity: 0 },
       { size: 3.6, label: '3.6L', quantity: 0 },
       { size: 2.5, label: '2.5L', quantity: 0 },
-      { size: 0.5, label: '0.5L', quantity: 2 },
+      { size: 0.5, label: '0.5L', quantity: 1 },
     ]
   ],
   [
@@ -17,7 +17,7 @@ const countPaintCansNecessaryTestCase = [
       { size: 18, label: '18L', quantity: 0 },
       { size: 3.6, label: '3.6L', quantity: 0 },
       { size: 2.5, label: '2.5L', quantity: 0 },
-      { size: 0.5, label: '0.5L', quantity: 2 },
+      { size: 0.5, label: '0.5L', quantity: 1 },
     ]
   ],
   [
@@ -32,9 +32,9 @@ const countPaintCansNecessaryTestCase = [
   [
     12300,
     [
-      { size: 18, label: '18L', quantity: 1 },
-      { size: 3.6, label: '3.6L', quantity: 1 },
-      { size: 2.5, label: '2.5L', quantity: 1 },
+      { size: 18, label: '18L', quantity: 0 },
+      { size: 3.6, label: '3.6L', quantity: 0 },
+      { size: 2.5, label: '2.5L', quantity: 0 },
       { size: 0.5, label: '0.5L', quantity: 1 },
     ]
   ],
@@ -56,10 +56,10 @@ const calculatePaintCansTestCase = [
     ],
     // expected
     [
-      { label: "18L", quantity: 64, size: 18 },
-      { label: "3.6L", quantity: 0, size: 3.6 },
+      { label: "18L", quantity: 0, size: 18 },
+      { label: "3.6L", quantity: 3, size: 3.6 },
       { label: "2.5L", quantity: 0, size: 2.5 },
-      { label: "0.5L", quantity: 4, size: 0.5 }
+      { label: "0.5L", quantity: 2, size: 0.5 }
     ]
   ],
   [
@@ -72,10 +72,10 @@ const calculatePaintCansTestCase = [
     ],
     // expected
     [
-      { label: "18L", quantity: 68, size: 18 },
-      { label: "3.6L", quantity: 2, size: 3.6 },
+      { label: "18L", quantity: 0, size: 18 },
+      { label: "3.6L", quantity: 3, size: 3.6 },
       { label: "2.5L", quantity: 0, size: 2.5 },
-      { label: "0.5L", quantity: 2, size: 0.5 }
+      { label: "0.5L", quantity: 4, size: 0.5 }
     ]
   ],
 ]
