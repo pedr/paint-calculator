@@ -132,6 +132,7 @@ export default function CalculatePaintCans() {
 
   const handleCalculateRequiredPaintCans = () => {
     setErrorsFound([])
+    setPaintCansRequired([])
     const { errors, validatedInputs } = checkForErrorsOnInput()
     if (errors.length) {
       setErrorsFound(errors)
