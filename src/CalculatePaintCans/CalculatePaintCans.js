@@ -148,6 +148,10 @@ export default function CalculatePaintCans() {
   if (!walls.length) return null
 
   return <div className='paint-calculator-background'>
+    <h2>Calcule quantas latas de tintas são necessárias para pintar uma sala de quatro paredes</h2>
+    <div className="alert-info">
+      Todas as as unidades de medidas devem ser escritas em centímetros
+    </div>
     <div className='paint-calculator-input-container'>
       {
         inputGroups.map((element, index) => {
