@@ -5,7 +5,8 @@ import PaintCalculatorHeader from './components/PaintCalculator.Header';
 import PaintCalculatorFooter from './components/PaintCalculator.Footer';
 
 import calculatePaintCans from './helpers/calculatePaint'
-import checkForErrors from './helpers/checkForErrors';
+import findErrorsInBusinessLogic from './helpers/findErrorsInBusinessLogic';
+import castWallInputsToNumber from './helpers/castWallInputsToNumber';
 
 export default function PaintCalculator() {
 
@@ -14,7 +15,7 @@ export default function PaintCalculator() {
    * @typedef {Function} PaintCansStateSetter
    * @type {[PaintCansState, PaintCansStateSetter]}
    */
-  const [paintCansRequired, setPaintCansRequired] = useState([])
+  const [paintCansNecessary, setPaintCansNecessary] = useState([])
 
   /**
    * @typedef {Array.<{errorMessage: string, index: number}} ErrorsFoundState
@@ -30,7 +31,12 @@ export default function PaintCalculator() {
     { height1: '', height2: '', floor: '', windows: '', doors: '' },
   ])
 
-  const handleChangeWallMeasure = e => {
+  /**
+   * Function that is responsible to update every field from the form.
+   * For that, each input field receive a name with a index position and a property name
+   * that is extractd and can be used to find each value should be updated
+   */
+  const handleOnChangeFormInput = e => {
     const newValue = e.target.value
     const [indexAsStr, property] = e.target.name.split('-')
 
@@ -38,7 +44,6 @@ export default function PaintCalculator() {
 
     const index = parseInt(indexAsStr)
 
-    // copy the oldValues and just modify the object with the correct index
     setWalls(oldValues => {
       return [
         ...oldValues.slice(0, index),
@@ -49,28 +54,17 @@ export default function PaintCalculator() {
   }
 
   const checkForErrorsOnInput = () => {
-    // check business constrains inside the readme
-    const castToIntOrReturnZero = value => value ? parseInt(value) : 0
 
-    const wallWithCorrectType = []
-    for (let wall of walls) {
-      const newObject = {}
-      newObject.doors = castToIntOrReturnZero(wall.doors)
-      newObject.windows = castToIntOrReturnZero(wall.windows)
-      newObject.floor = castToIntOrReturnZero(wall.floor)
-      newObject.height1 = castToIntOrReturnZero(wall.height1)
-      newObject.height2 = castToIntOrReturnZero(wall.height2)
-      wallWithCorrectType.push(newObject)
-    }
+    const wallWithCorrectType = castWallInputsToNumber(walls)
 
-    const errors = wallWithCorrectType.reduce(checkForErrors, [])
+    const errors = wallWithCorrectType.reduce(findErrorsInBusinessLogic, [])
     
     return { errors, validatedInputs: wallWithCorrectType }
   }
 
   const handleCalculateRequiredPaintCans = () => {
     setErrorsFound([])
-    setPaintCansRequired([])
+    setPaintCansNecessary([])
 
     const { errors, validatedInputs } = checkForErrorsOnInput()
     if (errors.length) {
@@ -78,7 +72,7 @@ export default function PaintCalculator() {
       return
     }
 
-    setPaintCansRequired(calculatePaintCans(validatedInputs))
+    setPaintCansNecessary(calculatePaintCans(validatedInputs))
   }
 
   if (!walls.length) return null
@@ -90,14 +84,14 @@ export default function PaintCalculator() {
 
       <PaintCalculatorForm
         errors={errorsFound}
-        handleChangeInput={handleChangeWallMeasure}
+        handleChangeInput={handleOnChangeFormInput}
         walls={walls}
       />
 
       <PaintCalculatorFooter 
         errors={errorsFound}
         handleOnSubmit={handleCalculateRequiredPaintCans}
-        result={paintCansRequired}
+        result={paintCansNecessary}
       />
 
     </div>

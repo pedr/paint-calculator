@@ -26,7 +26,7 @@ function isWallBigEnoughForDoor(wall) {
 /**
  * @returns {Array.<{errorMessage: string, index: number}>} 
  */
-export default function checkForErrors(errorsFound, wall, wallIndex) {
+export default function findErrorsInBusinessLogic(errorsFound, wall, wallIndex) {
   const businessConstrains = [
     {
       rule: isNegativeAreaLessThan50PercentOfWall,
