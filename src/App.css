@@ -125,3 +125,31 @@ align-items: center;
   padding: 0.5em;
   border: red solid 2px;
 }
+
+.paint-calculator-results {
+  padding: 0.4em;
+  margin: 0 1.5em 2em 1.5em;
+}
+
+.paint-calculator-results-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: black solid 1px;
+  margin-top: 0.5em;
+}
+
+.paint-calculator-results-row:first-of-type {
+  margin-bottom: 0.6em;
+  font-size: 1.2em;
+}
+
+.paint-calculator-results-row>span:first-of-type {
+  margin-right: 0.4em;
+  width: 100%;
+}
+
+.paint-calculator-results-row>span:nth-of-type(2) {
+  margin-left: 0.4em;
+  width: 100%;
+  text-align: left;
+}

@@ -183,6 +183,23 @@ export default function CalculatePaintCans() {
       }
       <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
 
-      </div>
+      {paintCansRequired.length ?
+        <div className='paint-calculator-results'>
+          <div className='paint-calculator-results-row'>
+            <span>Tamanho da lata</span>
+            <span>Quantidade</span>
+          </div>
+          {
+            paintCansRequired.map((paintCan) => {
+              return <div className='paint-calculator-results-row'>
+                <span>{paintCan.label}</span>
+                <span>{`${paintCan.quantity} un.`}</span>
+              </div>
+            })
+          }
+        </div>
+        : null}
+
+    </div>
   </div>
 }
