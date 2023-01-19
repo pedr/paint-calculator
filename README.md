@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# Calculadora de tinta necessária para pintar quatro paredes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Seguindo as especificações e recomendações de https://gitlab.com/digitalrepublic/code-challenge
 
-## Available Scripts
+## Sobre a solução
 
-In the project directory, you can run:
+Utilizei uma estrutura de pastas onde o domínio que estava trabalhando possuí uma pasta onde todos os arquivos apenas relevantes pra esse domínio se encontram.
+Nesse caso, acabei isolando só um component pra fora da pastas (dentro de `src/components/`) em demonstração em como eu estruturia uma pasta de components genéricos para serem utilizados dentro de todo sistema.
 
-### `npm start`
+Uma decisão meio peculiar que tomei foi utilizar o JSDocs junto com uma configuração do vscode para verificar os tipos, algo que não tinha feito antes. Acabei optando por isso para aprender como é desenvolver com tipos, mas sem ter que instalar todas as bibliotecas do typescript para um projeto relativamente simples como esse. Não acho que seja uma das melhores soluções, principalmente quando trabalhando com React, ter que tipar com typescript os `useState` hooks fica bem poluído.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Por último, o que eu gostaria de ter feito, mas não fiz por falta de tempo:
+  - Separar as classes do arquivo `App.css` em outros arquivos `.css` mais perto de onde são utilizadas
+  - Adicionar testes com o `react-testing-library`
+  - Melhorar a interface no geral, uma ideia que eu tive era adicionar um botão do lado do título de cada grupo de inputs para poder copiar os valores digitados anteriormente ('Copiar valores da última parede')
+  - Destacar os input fields com erros. Aqui eu optei por fazer uma solução "na unha" pra evitar ter que escolher uma lib pro exercício, mas o ideal seria usar uma biblioteca pra fazer o controle e mostrar o erro logo depois do usuário digital o valor, e não só quando o usuário abertar no botão pra gerar o resultado.
+  - Melhorar a responsividade, acabei só colocando duas ideias na metade, tela de celular e uma tela grande, podia ter um meio termo e melhorar a disposição dos elementos do `Header` 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Como rodar
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clonar o projeto e rodar os comandos na seguinte ordem:
 
-### `npm run build`
+1 - `yarn` ou `npm install`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+2 - `yarn start` ou `npm run start`
