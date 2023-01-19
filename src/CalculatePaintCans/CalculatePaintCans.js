@@ -1,73 +1,11 @@
 import React, { useState } from 'react';
-import calculatePaintCans, { calculateAreaOfWall, calculateNegativeSpace } from '../helpers/calculatePaint'
 
-const inputGroups = [
-  { name: 'Primeira Parede', id: 'first-wall' },
-  { name: 'Segunda Parede', id: 'second-wall' },
-  { name: 'Terceira Parede', id: 'third-wall' },
-  { name: 'Quarta Parede', id: 'fourth-wall' },
-]
+import CalculatePaintCansForm from './components/CalculatePaintsCanForm';
+import CalculatePaintCansHeader from './components/CalculatePaintCansHeader';
+import CalculatePaintCansFooter from './components/CalculatePaintCansFooter ';
 
-const inputFields = [
-  { name: 'Qntd de janelas', propertyName: 'windows', unit: 'un.' },
-  { name: 'Qntd  de portas', propertyName: 'doors', unit: 'un.' },
-  { name: 'Altura esquerda', propertyName: 'height1', unit: 'cm' },
-  { name: 'Altura direita', propertyName: 'height2', unit: 'cm' },
-  { name: 'Chão', propertyName: 'floor', unit: 'cm' },
-]
-
-function isWallConstraintsRespected(wall) {
-  const wallArea = calculateAreaOfWall(wall)
-  const areaTooSmall = 10_000
-  const areaTooBig = 500_000
-
-  return wallArea > areaTooSmall && wallArea < areaTooBig
-}
-
-function isNegativeAreaLessThan50PercentOfWall(wall) {
-  const wallArea = calculateAreaOfWall(wall)
-  const negativeArea = calculateNegativeSpace(wall.windows, wall.doors)
-
-  return wallArea / 2 > negativeArea
-}
-
-function isWallBigEnoughForDoor(wall) {
-  if (wall.doors === 0) return true
-
-  const DOOR_HEIGHT = 190
-
-  return wall.height1 - 30 >= DOOR_HEIGHT && wall.height2 - 30 >= DOOR_HEIGHT
-}
-
-/**
- * @returns {Array.<{errorMessage: string, index: number}>} 
- */
-function checkForErrors(errorsFound, wall, wallIndex) {
-  const businessConstrains = [
-    {
-      rule: isNegativeAreaLessThan50PercentOfWall,
-      errorMesage: 'Uma parede não pode ter mais de 50% de sua área ocupada por janela ou portas.'
-    },
-    {
-      rule: isWallBigEnoughForDoor,
-      errorMesage: 'Uma parede que possui uma porta precisa possuir pelo menos 220cm de altura.'
-    },
-    {
-      rule: isWallConstraintsRespected,
-      errorMesage: 'Uma parede precisa ter pelo menos 1m² de area e no máximo 50m²'
-    },
-  ]
-
-  const wallIsNotValid = businessConstrains.filter(contrain => !contrain.rule(wall))
-  return [
-    ...errorsFound,
-    ...wallIsNotValid.map((constrain) => ({
-      errorMessage: constrain.errorMesage,
-      index: wallIndex
-    })
-    )
-  ]
-}
+import calculatePaintCans from '../helpers/calculatePaint'
+import { checkForErrors } from './helpers';
 
 export default function CalculatePaintCans() {
 
@@ -143,80 +81,26 @@ export default function CalculatePaintCans() {
     setPaintCansRequired(calculatePaintCans(validatedInputs))
   }
 
-  React.useEffect(() => {
-    console.log(walls)
-  }, [walls])
-
   if (!walls.length) return null
 
-  return <div className='paint-calculator-background'>
-    <h2>Calcule quantas latas de tintas são necessárias para pintar uma sala de quatro paredes</h2>
-    <div className="alert-info">
-      Todas as as unidades de medidas devem ser escritas em centímetros
-    </div>
-    <div className='paint-calculator-input-container'>
-      {
-        inputGroups.map((element, index) => {
-          return <div className="wall-input-group" key={element.id}>
-            <h3>{element.name}</h3>
-            {inputFields.map((field) => {
-              const inputIdentifier = `${index}-${field.propertyName}`
-              return <div className="input-wrapper" key={inputIdentifier}>
-                <label htmlFor={inputIdentifier}>
-                  {field.name}
-                </label>
-                <input value={walls[index][field.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
-                <span>{field.unit}</span>
-              </div>
-            })}
-            {
-              errorsFound.filter(error => error.index === index).length ? errorsFound.filter(error => error.index === index).map(error => {
-                const key = `${error.index}-${error.errorMessage}`
-                const errorFormated = `⚠️ ${error.errorMessage}`
-                return <AlertWarning key={key} isVisible message={errorFormated} />
-              }) : null
-            }
-          </div>
-        })
-      }
-    </div>
+  return (
+    <div className='paint-calculator-background'>
 
-    <div className='paint-calculator-control-wrapper'>
-      <AlertWarning
-        isVisible={errorsFound.length > 0}
-        message="Há algo errado nos dados inseridos, verificar e corrigir."
+      <CalculatePaintCansHeader />
+
+      <CalculatePaintCansForm
+        errors={errorsFound}
+        handleChangeInput={handleChangeWallMeasure}
+        walls={walls}
       />
-      <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
-      <PaintCansResultTable paintCansRequired={paintCansRequired} />
+
+      <CalculatePaintCansFooter
+        errors={errorsFound}
+        handleOnSubmit={handleCalculateRequiredPaintCans}
+        result={paintCansRequired}
+      />
+
     </div>
-  </div>
+  )
 }
 
-const AlertWarning = ({isVisible, message}) => {
-
-  if (!isVisible) return null
-
-  return <div className='alert-warning'>{message}</div>
-}
-
-const PaintCansResultTable = props => {
-
-  if (!props.paintCansRequired.length) return null
-
-  const PaintCansResultTableRow = () => {
-    return props.paintCansRequired.map((paintCan) => {
-      return <div className='paint-calculator-results-row'>
-        <span>{paintCan.label}</span>
-        <span>{`${paintCan.quantity} un.`}</span>
-      </div>
-    })
-  }
-
-  return <div className='paint-calculator-results'>
-    <div className='paint-calculator-results-row'>
-      <span>Tamanho da lata</span>
-      <span>Quantidade</span>
-    </div>
-    <PaintCansResultTableRow />
-  </div>
-}
