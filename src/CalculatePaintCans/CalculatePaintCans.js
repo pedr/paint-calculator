@@ -131,6 +131,7 @@ export default function CalculatePaintCans() {
   }
 
   const handleCalculateRequiredPaintCans = () => {
+    setErrorsFound([])
     const { errors, validatedInputs } = checkForErrorsOnInput()
     if (errors.length) {
       setErrorsFound(errors)
@@ -147,20 +148,21 @@ export default function CalculatePaintCans() {
   if (!walls.length) return null
 
   return <div className='paint-calculator-background'>
+    <div className='paint-calculator-input-container'>
       {
         inputGroups.map((element, index) => {
           return <div className="wall-input-group" key={element.id}>
             <h3>{element.name}</h3>
-              {inputFields.map((field) => {
-                const inputIdentifier = `${index}-${field.propertyName}` 
-                return <div className="input-wrapper" key={inputIdentifier}>
-                  <label htmlFor={inputIdentifier}>
-                    {field.name}
-                  </label>
-                  <input value={walls[index][field.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
-                  <span>{field.unit}</span>
-                </div>
-              })}
+            {inputFields.map((field) => {
+              const inputIdentifier = `${index}-${field.propertyName}`
+              return <div className="input-wrapper" key={inputIdentifier}>
+                <label htmlFor={inputIdentifier}>
+                  {field.name}
+                </label>
+                <input value={walls[index][field.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
+                <span>{field.unit}</span>
+              </div>
+            })}
             {
               errorsFound && errorsFound.filter(error => error.index === index).length ? errorsFound.filter(error => error.index === index).map(error => {
                 const key = `${error.index}-${error.errorMessage}`
@@ -170,13 +172,17 @@ export default function CalculatePaintCans() {
           </div>
         })
       }
+    </div>
+    <div className='paint-calculator-control-wrapper'>
       {
         errorsFound && errorsFound.length ? (
           <div className='alert-warning'>
             Há algo errado nos dados inseridos, verificar e corrigir.
-        </div>
+          </div>
         ) : null
       }
       <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
+
+      </div>
   </div>
 }
