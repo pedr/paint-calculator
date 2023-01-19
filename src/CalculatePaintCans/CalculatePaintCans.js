@@ -9,11 +9,11 @@ const inputGroups = [
 ]
 
 const inputFields = [
-  { name: 'Quantidade de janelas', propertyName: 'windows' },
-  { name: 'Quantidade de portas', propertyName: 'doors' },
-  { name: 'Altura esquerda', propertyName: 'height1' },
-  { name: 'Altura direita', propertyName: 'height2' },
-  { name: 'Chão', propertyName: 'floor' },
+  { name: 'Qntd de janelas', propertyName: 'windows', unit: 'un.' },
+  { name: 'Qntd  de portas', propertyName: 'doors', unit: 'un.' },
+  { name: 'Altura esquerda', propertyName: 'height1', unit: 'cm' },
+  { name: 'Altura direita', propertyName: 'height2', unit: 'cm' },
+  { name: 'Chão', propertyName: 'floor', unit: 'cm' },
 ]
 
 function isWallConstraintsRespected(wall) {
@@ -146,36 +146,37 @@ export default function CalculatePaintCans() {
 
   if (!walls.length) return null
 
-  return <div>
-    <div>
+  return <div className='paint-calculator-background'>
       {
         inputGroups.map((element, index) => {
-          return <React.Fragment key={element.id}>
-            <p >{element.name}</p>
-            <div>
+          return <div className="wall-input-group" key={element.id}>
+            <h3>{element.name}</h3>
               {inputFields.map((field) => {
                 const inputIdentifier = `${index}-${field.propertyName}` 
-                return <React.Fragment>
-                  <label key={inputIdentifier}>
-                  {field.name}
+                return <div className="input-wrapper" key={inputIdentifier}>
+                  <label htmlFor={inputIdentifier}>
+                    {field.name}
+                  </label>
                   <input value={walls[index][field.propertyName]} onChange={handleChangeWallMeasure} name={inputIdentifier} type="number" min="0" step="1" pattern="[0-9]*" />
-                </label>
-                <br/>
-                </React.Fragment>
+                  <span>{field.unit}</span>
+                </div>
               })}
-            </div>
-          </React.Fragment>
+            {
+              errorsFound && errorsFound.filter(error => error.index === index).length ? errorsFound.filter(error => error.index === index).map(error => {
+                const key = `${error.index}-${error.errorMessage}`
+                return <div className="alert-warning" key={key}>{`⚠️  ${error.errorMessage}`}</div>
+              }) : null
+            }
+          </div>
         })
       }
       {
-        errorsFound && errorsFound.length && errorsFound.map(error => {
-          const key = `${error.index}-${error.errorMessage}`
-          const message = `${inputGroups[error.index].name} - ${error.errorMessage}` 
-          return <div key={key}><p>{message}</p></div>
-        })
+        errorsFound && errorsFound.length ? (
+          <div className='alert-warning'>
+            Há algo errado nos dados inseridos, verificar e corrigir.
+        </div>
+        ) : null
       }
       <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
-      {JSON.stringify(paintCansRequired, null, 4)}
-    </div>
   </div>
 }
