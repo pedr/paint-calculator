@@ -114,7 +114,7 @@ export default function CalculatePaintCans() {
     // check business constrains inside the readme
     const castToIntOrReturnZero = value => value ? parseInt(value) : 0
 
-    const allValuesToNumber = []
+    const wallWithCorrectType = []
     for (let wall of walls) {
       const newObject = {}
       newObject.doors = castToIntOrReturnZero(wall.doors)
@@ -122,17 +122,18 @@ export default function CalculatePaintCans() {
       newObject.floor = castToIntOrReturnZero(wall.floor)
       newObject.height1 = castToIntOrReturnZero(wall.height1)
       newObject.height2 = castToIntOrReturnZero(wall.height2)
-      allValuesToNumber.push(newObject)
+      wallWithCorrectType.push(newObject)
     }
 
-    const errors = allValuesToNumber.reduce(checkForErrors, [])
+    const errors = wallWithCorrectType.reduce(checkForErrors, [])
     
-    return { errors, validatedInputs: allValuesToNumber }
+    return { errors, validatedInputs: wallWithCorrectType }
   }
 
   const handleCalculateRequiredPaintCans = () => {
     setErrorsFound([])
     setPaintCansRequired([])
+
     const { errors, validatedInputs } = checkForErrorsOnInput()
     if (errors.length) {
       setErrorsFound(errors)
