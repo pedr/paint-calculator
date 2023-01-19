@@ -170,42 +170,53 @@ export default function CalculatePaintCans() {
               </div>
             })}
             {
-              errorsFound && errorsFound.filter(error => error.index === index).length ? errorsFound.filter(error => error.index === index).map(error => {
+              errorsFound.filter(error => error.index === index).length ? errorsFound.filter(error => error.index === index).map(error => {
                 const key = `${error.index}-${error.errorMessage}`
-                return <div className="alert-warning" key={key}>{`⚠️  ${error.errorMessage}`}</div>
+                const errorFormated = `⚠️ ${error.errorMessage}`
+                return <AlertWarning key={key} isVisible message={errorFormated} />
               }) : null
             }
           </div>
         })
       }
     </div>
+
     <div className='paint-calculator-control-wrapper'>
-      {
-        errorsFound && errorsFound.length ? (
-          <div className='alert-warning'>
-            Há algo errado nos dados inseridos, verificar e corrigir.
-          </div>
-        ) : null
-      }
+      <AlertWarning
+        isVisible={errorsFound.length > 0}
+        message="Há algo errado nos dados inseridos, verificar e corrigir."
+      />
       <button onClick={handleCalculateRequiredPaintCans}>Calcular a quantidade de tintas necessaria</button>
-
-      {paintCansRequired.length ?
-        <div className='paint-calculator-results'>
-          <div className='paint-calculator-results-row'>
-            <span>Tamanho da lata</span>
-            <span>Quantidade</span>
-          </div>
-          {
-            paintCansRequired.map((paintCan) => {
-              return <div className='paint-calculator-results-row'>
-                <span>{paintCan.label}</span>
-                <span>{`${paintCan.quantity} un.`}</span>
-              </div>
-            })
-          }
-        </div>
-        : null}
-
+      <PaintCansResultTable paintCansRequired={paintCansRequired} />
     </div>
+  </div>
+}
+
+const AlertWarning = ({isVisible, message}) => {
+
+  if (!isVisible) return null
+
+  return <div className='alert-warning'>{message}</div>
+}
+
+const PaintCansResultTable = props => {
+
+  if (!props.paintCansRequired.length) return null
+
+  const PaintCansResultTableRow = () => {
+    return props.paintCansRequired.map((paintCan) => {
+      return <div className='paint-calculator-results-row'>
+        <span>{paintCan.label}</span>
+        <span>{`${paintCan.quantity} un.`}</span>
+      </div>
+    })
+  }
+
+  return <div className='paint-calculator-results'>
+    <div className='paint-calculator-results-row'>
+      <span>Tamanho da lata</span>
+      <span>Quantidade</span>
+    </div>
+    <PaintCansResultTableRow />
   </div>
 }
