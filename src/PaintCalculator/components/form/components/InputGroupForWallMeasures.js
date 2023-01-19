@@ -1,15 +1,14 @@
 import React from 'react';
-import AlertWarning from '../../components/AlertWarning';
-import { fieldsForCalculatePaint } from '../consts';
+import AlertWarning from '../../../../components/AlertWarning';
+import { inputFieldsForPaintCalculator } from '../../../consts';
 
-
-const WallInputGroup = ({ wallTitle, errors, handleChangeWallMeasure, wallState, wallIndex }) => {
+export default function InputGroupForWallMeasures({ wallTitle, errors, handleChangeWallMeasure, wallState, wallIndex }) {
   return (
     <div className="wall-input-group">
       <h3>{wallTitle}</h3>
       {
-        fieldsForCalculatePaint.map((field) => (
-          <InputFieldForPaintCalculator
+        inputFieldsForPaintCalculator.map((field) => (
+          <InputFieldForWallMeasures 
             value={wallState[field.propertyName]}
             onChange={handleChangeWallMeasure}
             identifier={`${wallIndex}-${field.propertyName}`}
@@ -30,7 +29,7 @@ const WallInputGroup = ({ wallTitle, errors, handleChangeWallMeasure, wallState,
 }
 
 
-const InputFieldForPaintCalculator = ({ fieldName, value, onChange, unit, identifier }) => {
+const InputFieldForWallMeasures = ({ fieldName, value, onChange, unit, identifier }) => {
   return (
     <div className="input-wrapper">
       <label htmlFor={identifier}>
@@ -50,5 +49,3 @@ const InputFieldForPaintCalculator = ({ fieldName, value, onChange, unit, identi
     </div>
   )
 }
-
-export default WallInputGroup

@@ -1,10 +1,10 @@
 import React from 'react';
-import CalculatePaintCans from './CalculatePaintCans/CalculatePaintCans';
+import PaintCalculator from './PaintCalculator/PaintCalculator';
 import './App.css'
 
 function App() {
   return (
-    <CalculatePaintCans />
+    <PaintCalculator />
   );
 }
 

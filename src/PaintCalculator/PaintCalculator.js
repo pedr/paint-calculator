@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import CalculatePaintCansForm from './components/CalculatePaintsCanForm';
-import CalculatePaintCansHeader from './components/CalculatePaintCansHeader';
-import CalculatePaintCansFooter from './components/CalculatePaintCansFooter ';
+import PaintCalculatorForm from './components/form/PaintCalculator.Form';
+import PaintCalculatorHeader from './components/PaintCalculator.Header';
+import PaintCalculatorFooter from './components/PaintCalculator.Footer';
 
-import calculatePaintCans from '../helpers/calculatePaint'
-import { checkForErrors } from './helpers';
+import calculatePaintCans from './helpers/calculatePaint'
+import checkForErrors from './helpers/checkForErrors';
 
-export default function CalculatePaintCans() {
+export default function PaintCalculator() {
 
   /**
    * @typedef {Array.<{quantity: number, size: number, label: string}} PaintCansState
@@ -86,15 +86,15 @@ export default function CalculatePaintCans() {
   return (
     <div className='paint-calculator-background'>
 
-      <CalculatePaintCansHeader />
+      <PaintCalculatorHeader />
 
-      <CalculatePaintCansForm
+      <PaintCalculatorForm
         errors={errorsFound}
         handleChangeInput={handleChangeWallMeasure}
         walls={walls}
       />
 
-      <CalculatePaintCansFooter
+      <PaintCalculatorFooter 
         errors={errorsFound}
         handleOnSubmit={handleCalculateRequiredPaintCans}
         result={paintCansRequired}

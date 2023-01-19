@@ -1,4 +1,4 @@
-import { calculateAreaOfWall, calculateNegativeSpace } from '../helpers/calculatePaint'
+import { calculateAreaOfWall, calculateNegativeSpace } from './calculatePaint'
 
 function isWallConstraintsRespected(wall) {
   const wallArea = calculateAreaOfWall(wall)
@@ -26,7 +26,7 @@ function isWallBigEnoughForDoor(wall) {
 /**
  * @returns {Array.<{errorMessage: string, index: number}>} 
  */
-export function checkForErrors(errorsFound, wall, wallIndex) {
+export default function checkForErrors(errorsFound, wall, wallIndex) {
   const businessConstrains = [
     {
       rule: isNegativeAreaLessThan50PercentOfWall,

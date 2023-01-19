@@ -1,8 +1,8 @@
 import React from "react"
 import AlertWarning from "../../components/AlertWarning"
-import PaintCansResultTable from "./PaintCansResultTable"
+import PaintCalculatorResultTable from "./form/components/PaintCalculator.ResultTable"
 
-export default function CalculatePaintCansFooter({ errors, handleOnSubmit, result }) {
+export default function PaintCalculatorFooter({ errors, handleOnSubmit, result }) {
   return (
     <div className='paint-calculator-control-wrapper'>
       <AlertWarning
@@ -10,7 +10,7 @@ export default function CalculatePaintCansFooter({ errors, handleOnSubmit, resul
         message="Há algo errado nos dados inseridos, verificar e corrigir."
       />
       <button onClick={handleOnSubmit}>Calcular a quantidade de tintas necessaria</button>
-      <PaintCansResultTable paintCansRequired={result} />
+      <PaintCalculatorResultTable paintCansRequired={result} />
     </div>
   )
 }

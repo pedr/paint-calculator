@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function PaintCansResultTable({ paintCansRequired }) {
+export default function PaintCalculatorResultTable({ paintCansRequired }) {
 
   if (!paintCansRequired.length) return null
 
