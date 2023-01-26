@@ -10,7 +10,11 @@ const phrases = {
       QTY_DOORS: 'Qntd de portas',
       HEIGHT_LEFT: 'Altura esquerda',
       HEIGHT_RIGHT: 'Altura direita',
-      FLOOR: 'Chão'
+      FLOOR: 'Chão',
+      FIRST_WALL: 'Primeira Parede',
+      SECOND_WALL: 'Segunda Parede',
+      THIRD_WALL: 'Terceira Parede',
+      FOURTH_WALL: 'Quarta Parede'
     },
     PAINT_CALCULATOR_FOOTER: {
       BUTTON: 'Calcular a quantidade de tintas necessaria',

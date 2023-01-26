@@ -1,9 +1,9 @@
 
 const inputGroupsForPaintCalculator = [
-  { name: 'Primeira Parede', id: 'first-wall', index: 0 },
-  { name: 'Segunda Parede', id: 'second-wall', index: 1 },
-  { name: 'Terceira Parede', id: 'third-wall', index: 2 },
-  { name: 'Quarta Parede', id: 'fourth-wall', index: 3 },
+  { textKey: 'FIRST_WALL', id: 'first-wall', index: 0 },
+  { textKey: 'SECOND_WALL', id: 'second-wall', index: 1 },
+  { textKey: 'THIRD_WALL', id: 'third-wall', index: 2 },
+  { textKey: 'FOURTH_WALL', id: 'fourth-wall', index: 3 },
 ]
 
 const inputFieldsForPaintCalculator = [
