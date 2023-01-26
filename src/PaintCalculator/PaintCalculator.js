@@ -6,6 +6,7 @@ import PaintCalculatorFooter from './components/PaintCalculator.Footer';
 
 import calculatePaintCans from './helpers/calculatePaint'
 import checkForErrorsOnInput from './helpers/checkForErrorsOnInput';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 export default function PaintCalculator() {
 
@@ -68,6 +69,8 @@ export default function PaintCalculator() {
 
   return (
     <div className='paint-calculator-background'>
+
+      <LanguageSwitcher />
 
       <PaintCalculatorHeader />
 
