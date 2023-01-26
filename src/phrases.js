@@ -14,7 +14,12 @@ const phrases = {
       FIRST_WALL: 'Primeira Parede',
       SECOND_WALL: 'Segunda Parede',
       THIRD_WALL: 'Terceira Parede',
-      FOURTH_WALL: 'Quarta Parede'
+      FOURTH_WALL: 'Quarta Parede',
+      ERRORS: {
+        OCCUPIED_AREA_TOO_BIG: 'Uma parede não pode ter mais de 50% de sua área ocupada por janela ou portas.',
+        WALL_TOO_SMALL_FOR_DOOR: 'Uma parede que possui uma porta precisa possuir pelo menos 220cm de altura.',
+        WALL_AREA_IS_INVALID: ''
+      }
     },
     PAINT_CALCULATOR_FOOTER: {
       BUTTON: 'Calcular a quantidade de tintas necessaria',

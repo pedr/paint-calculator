@@ -23,8 +23,8 @@ export default function InputGroupForWallMeasures({ wallTitle, errors, handleCha
       }
       {
         errors.length ? errors.map(error => {
-          const key = `${error.index}-${error.errorMessage}`
-          const errorFormated = `⚠️ ${error.errorMessage}`
+          const key = `${error.index}-${error.errorMessageKey}`
+          const errorFormated = `⚠️ ${texts.PAINT_CALCULATOR_FORM.ERRORS[error.errorMessageKey]}`
           return <AlertWarning key={key} isVisible message={errorFormated} />
         }) : null
       }

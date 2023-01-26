@@ -30,15 +30,15 @@ export default function findErrorsInBusinessLogic(errorsFound, wall, wallIndex) 
   const businessConstrains = [
     {
       rule: isNegativeAreaLessThan50PercentOfWall,
-      errorMesage: 'Uma parede não pode ter mais de 50% de sua área ocupada por janela ou portas.'
+      errorMesageKey: 'OCCUPIED_AREA_TOO_BIG'
     },
     {
       rule: isWallBigEnoughForDoor,
-      errorMesage: 'Uma parede que possui uma porta precisa possuir pelo menos 220cm de altura.'
+      errorMesageKey: 'WALL_TOO_SMALL_FOR_DOOR'
     },
     {
       rule: isWallConstraintsRespected,
-      errorMesage: 'Uma parede precisa ter pelo menos 1m² de area e no máximo 50m²'
+      errorMesageKey: 'WALL_AREA_IS_INVALID'
     },
   ]
 
@@ -46,7 +46,7 @@ export default function findErrorsInBusinessLogic(errorsFound, wall, wallIndex) 
   return [
     ...errorsFound,
     ...wallIsNotValid.map((constrain) => ({
-      errorMessage: constrain.errorMesage,
+      errorMessageKey: constrain.errorMesageKey,
       index: wallIndex
     })
     )
