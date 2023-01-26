@@ -7,10 +7,7 @@ import PaintCalculatorFooter from './components/PaintCalculator.Footer';
 import calculatePaintCans from './helpers/calculatePaint'
 import checkForErrorsOnInput from './helpers/checkForErrorsOnInput';
 
-export default function PaintCalculator({
-  calculatePaintCansService = calculatePaintCans,
-  checkForErrorsOnInputService = checkForErrorsOnInput
-}) {
+export default function PaintCalculator() {
 
   /**
    * @typedef {Array.<{quantity: number, size: number, label: string}} PaintCansState
@@ -58,13 +55,13 @@ export default function PaintCalculator({
     setErrorsFound([])
     setPaintCansNecessary([])
 
-    const { errors, validatedInputs } = checkForErrorsOnInputService(walls)
+    const { errors, validatedInputs } = checkForErrorsOnInput(walls)
     if (errors.length) {
       setErrorsFound(errors)
       return
     }
 
-    setPaintCansNecessary(calculatePaintCansService(validatedInputs))
+    setPaintCansNecessary(calculatePaintCans(validatedInputs))
   }
 
   if (!walls.length) return null

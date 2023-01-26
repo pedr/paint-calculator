@@ -45,6 +45,7 @@ const InputFieldForWallMeasures = ({ fieldName, value, onChange, unit, identifie
         name={identifier}
         id={identifier}
         type="text"
+        data-testid={identifier}
       />
       <span>{unit}</span>
     </div>
