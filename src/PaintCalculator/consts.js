@@ -7,11 +7,11 @@ const inputGroupsForPaintCalculator = [
 ]
 
 const inputFieldsForPaintCalculator = [
-  { name: 'Qntd de janelas', propertyName: 'windows', unit: 'un.' },
-  { name: 'Qntd  de portas', propertyName: 'doors', unit: 'un.' },
-  { name: 'Altura esquerda', propertyName: 'height1', unit: 'cm' },
-  { name: 'Altura direita', propertyName: 'height2', unit: 'cm' },
-  { name: 'Chão', propertyName: 'floor', unit: 'cm' },
+  { textKey: 'QTY_WINDOWS', propertyName: 'windows', unit: 'un.' },
+  { textKey: 'QTY_DOORS', propertyName: 'doors', unit: 'un.' },
+  { textKey: 'HEIGHT_LEFT', propertyName: 'height1', unit: 'cm' },
+  { textKey: 'HEIGHT_RIGHT', propertyName: 'height2', unit: 'cm' },
+  { textKey: 'FLOOR', propertyName: 'floor', unit: 'cm' },
 ]
 
 export {

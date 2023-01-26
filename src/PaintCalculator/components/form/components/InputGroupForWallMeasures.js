@@ -1,19 +1,23 @@
 import React from 'react';
 import AlertWarning from '../../../../components/AlertWarning';
+import { useLanguage } from '../../../../languageContext';
 import { inputFieldsForPaintCalculator } from '../../../consts';
 
 export default function InputGroupForWallMeasures({ wallTitle, errors, handleChangeWallMeasure, wallState, wallIndex }) {
+  const { texts } = useLanguage();
+
   return (
     <div className="wall-input-group">
       <h3>{wallTitle}</h3>
       {
         inputFieldsForPaintCalculator.map((field) => (
           <InputFieldForWallMeasures 
+            key={field.propertyName}  
             value={wallState[field.propertyName]}
             onChange={handleChangeWallMeasure}
             identifier={`${wallIndex}-${field.propertyName}`}
             unit={field.unit}
-            fieldName={field.name}
+            fieldName={texts.PAINT_CALCULATOR_FORM[field.textKey]}
           />
         ))
       }
