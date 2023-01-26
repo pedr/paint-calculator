@@ -5,10 +5,12 @@ import PaintCalculatorHeader from './components/PaintCalculator.Header';
 import PaintCalculatorFooter from './components/PaintCalculator.Footer';
 
 import calculatePaintCans from './helpers/calculatePaint'
-import findErrorsInBusinessLogic from './helpers/findErrorsInBusinessLogic';
-import castWallInputsToNumber from './helpers/castWallInputsToNumber';
+import checkForErrorsOnInput from './helpers/checkForErrorsOnInput';
 
-export default function PaintCalculator() {
+export default function PaintCalculator({
+  calculatePaintCansService = calculatePaintCans,
+  checkForErrorsOnInputService = checkForErrorsOnInput
+}) {
 
   /**
    * @typedef {Array.<{quantity: number, size: number, label: string}} PaintCansState
@@ -52,26 +54,17 @@ export default function PaintCalculator() {
     })
   }
 
-  const checkForErrorsOnInput = () => {
-
-    const wallWithCorrectType = castWallInputsToNumber(walls)
-
-    const errors = wallWithCorrectType.reduce(findErrorsInBusinessLogic, [])
-    
-    return { errors, validatedInputs: wallWithCorrectType }
-  }
-
   const handleCalculateRequiredPaintCans = () => {
     setErrorsFound([])
     setPaintCansNecessary([])
 
-    const { errors, validatedInputs } = checkForErrorsOnInput()
+    const { errors, validatedInputs } = checkForErrorsOnInputService(walls)
     if (errors.length) {
       setErrorsFound(errors)
       return
     }
 
-    setPaintCansNecessary(calculatePaintCans(validatedInputs))
+    setPaintCansNecessary(calculatePaintCansService(validatedInputs))
   }
 
   if (!walls.length) return null
