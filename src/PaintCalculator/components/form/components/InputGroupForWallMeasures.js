@@ -44,10 +44,7 @@ const InputFieldForWallMeasures = ({ fieldName, value, onChange, unit, identifie
         onChange={onChange}
         name={identifier}
         id={identifier}
-        type="number"
-        min="0"
-        step="1"
-        pattern="[0-9]*"
+        type="text"
       />
       <span>{unit}</span>
     </div>

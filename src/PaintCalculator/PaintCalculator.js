@@ -37,10 +37,9 @@ export default function PaintCalculator() {
    * that is extractd and can be used to find each value should be updated
    */
   const handleOnChangeFormInput = e => {
-    const newValue = e.target.value
-    const [indexAsStr, property] = e.target.name.split('-')
 
-    if (!(newValue === '') && isNaN(parseInt(newValue))) return
+    const newValue = e.target.value.replace(/\D/g, '')
+    const [indexAsStr, property] = e.target.name.split('-')
 
     const index = parseInt(indexAsStr)
 
