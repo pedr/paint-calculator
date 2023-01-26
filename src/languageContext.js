@@ -5,7 +5,7 @@ const LanguageContext = React.createContext();
 
 function LanguageProvider({ children }) {
   const defaultValue = 'pt'
-  const [texts, setTexts] = React.useState();
+  const [texts, setTexts] = React.useState(phrases.pt);
 
   function changeLanguage(language) {
     setTexts(phrases[language])

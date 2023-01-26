@@ -1,10 +1,12 @@
 import React from "react"
+import { useLanguage } from "../../languageContext"
 
 export default function PaintCalculatorHeader() {
+  const { texts } = useLanguage()
   return <>
-    <h2>Calcule quantas latas de tintas são necessárias para pintar uma sala de quatro paredes</h2>
+    <h2>{texts.PAINT_CALCULATOR_HEADER.TITLE}</h2>
     <div className="alert-info">
-      Todas as as unidades de medidas devem ser escritas em centímetros
+      {texts.PAINT_CALCULATOR_HEADER.INFO}
     </div>
   </>
 }
