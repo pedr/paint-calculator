@@ -12,7 +12,7 @@ describe('components/AlertWarning', () => {
     const isVisible = true
     render(<AlertWarning isVisible={isVisible} message={message} />)
 
-    expect(screen.queryByText(message)).toBeVisible();
+    expect(screen.getByText(message)).toBeVisible();
 
   })
 
@@ -22,6 +22,6 @@ describe('components/AlertWarning', () => {
     const isVisible = false
     render(<AlertWarning isVisible={isVisible} message={message} />)
 
-    expect(screen.queryByText(message)).toBeNull();
+    expect(screen.queryByText(message)).not.toBeInTheDocument();
   })
 })
