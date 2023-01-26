@@ -56,7 +56,7 @@ describe('PaintCalculator', () => {
   it('should show error message if button pressed without any inputs', () => {
     setup()
 
-    userEvent.click(screen.getByRole('button'))
+    userEvent.click(screen.getByText(phrases.pt.PAINT_CALCULATOR_FOOTER.BUTTON))
 
     expect(screen.getByText(phrases.pt.PAINT_CALCULATOR_FOOTER.ERROR)).toBeVisible();
   })
@@ -69,7 +69,7 @@ describe('PaintCalculator', () => {
     validInputs.forEach(({ value, onElement }) => {
       userEvent.type(screen.getByTestId(onElement), value)
     })
-    userEvent.click(screen.getByRole('button'))
+    userEvent.click(screen.getByText(phrases.pt.PAINT_CALCULATOR_FOOTER.BUTTON))
 
     expect(screen.queryByText(phrases.pt.PAINT_CALCULATOR_FOOTER.ERROR)).not.toBeInTheDocument();
     expect(screen.getByTestId('paint-calculator-results')).toBeVisible();
@@ -83,7 +83,7 @@ describe('PaintCalculator', () => {
       userEvent.type(screen.getByTestId(onElement), value)
     })
     // validation error, should show error alert and no result
-    userEvent.click(screen.getByRole('button'))
+    userEvent.click(screen.getByText(phrases.pt.PAINT_CALCULATOR_FOOTER.BUTTON))
     expect(screen.getByText(phrases.pt.PAINT_CALCULATOR_FOOTER.ERROR)).toBeVisible();
     expect(screen.queryByTestId('paint-calculator-results')).not.toBeInTheDocument();
 
@@ -92,7 +92,7 @@ describe('PaintCalculator', () => {
       userEvent.clear(screen.getByTestId(onElement))
       userEvent.type(screen.getByTestId(onElement), value)
     })
-    userEvent.click(screen.getByRole('button'))
+    userEvent.click(screen.getByText(phrases.pt.PAINT_CALCULATOR_FOOTER.BUTTON))
     expect(screen.queryByText(phrases.pt.PAINT_CALCULATOR_FOOTER.ERROR)).not.toBeInTheDocument();
     expect(screen.getByTestId('paint-calculator-results')).toBeVisible();
   })
