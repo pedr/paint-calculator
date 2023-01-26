@@ -11,7 +11,7 @@ export default function PaintCalculatorResultTable({ paintCansRequired }) {
 
   if (!paintCansRequired.length) return null
 
-  return <div className='paint-calculator-results'>
+  return <div className='paint-calculator-results' data-testid='paint-calculator-results'>
     <div className='paint-calculator-results-row'>
       <span>Tamanho da lata</span>
       <span>Quantidade</span>
