@@ -12,7 +12,7 @@ export default function PaintCalculatorFooter({ errors, handleOnSubmit, result }
         isVisible={errors.length > 0}
         message={texts.PAINT_CALCULATOR_FOOTER.ERROR}
       />
-      <button onClick={handleOnSubmit}>{texts.PAINT_CALCULATOR_FOOTER.BUTTON}</button>
+      <button type="button" onClick={handleOnSubmit}>{texts.PAINT_CALCULATOR_FOOTER.BUTTON}</button>
       <PaintCalculatorResultTable paintCansRequired={result} />
     </div>
   )
