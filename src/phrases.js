@@ -18,7 +18,7 @@ const phrases = {
       ERRORS: {
         OCCUPIED_AREA_TOO_BIG: 'Uma parede não pode ter mais de 50% de sua área ocupada por janela ou portas.',
         WALL_TOO_SMALL_FOR_DOOR: 'Uma parede que possui uma porta precisa possuir pelo menos 220cm de altura.',
-        WALL_AREA_IS_INVALID: ''
+        WALL_AREA_IS_INVALID: 'Uma parede precisa ter pelo menos 1m² de area e no máximo 50m²'
       }
     },
     PAINT_CALCULATOR_FOOTER: {
